@@ -1,1 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="Las Tortillas del Gaucho. Conocé nuestros sabores y pedí tus tortillas por WhatsApp."
+  >
+  <title>Las Tortillas del Gaucho</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #111;
+      color: #fff;
+      font-family: "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 20px;
+      background: #000;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      color: #f5b942;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #f5b942;
+    }
+
+    a:focus-visible {
+      outline: 3px solid #f5b942;
+      outline-offset: 5px;
+    }
+
+    section {
+      scroll-margin-top: 20px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: linear-gradient(180deg, #1a1a1a, #000);
+    }
+
+    .hero h1 {
+      color: #f5b942;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+
+    .btn-pedido {
+      display: inline-block;
+      margin-top: 15px;
+      background: #f5b942;
+      color: #000;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-pedido:hover {
+      background: #ffd16c;
+    }
+
+    .sabores {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 35px 15px;
+      text-align: center;
+    }
+
+    .sabores h2,
+    .congeladas h2 {
+      color: #f5b942;
+      margin-bottom: 5px;
+    }
+
+    .sabores > p,
+    .congeladas > p {
+      color: #aaa;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: #1c1c1c;
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      padding-bottom: 8px;
+      border: 1px solid #303030;
+    }
+
+    .card p {
+      font-size: 13px;
+      margin: 8px 5px 4px;
+      color: #fff;
+    }
+
+    .card:last-child {
+      grid-column: 2;
+    }
+
+    /*
+      Recortes aproximados de la captura completa sabores.jpg.
+      El encuadre evita los nombres impresos debajo de las fotos.
+    */
+    .foto-sabor {
+      width: 100%;
+      aspect-ratio: 110 / 56;
+      background-image: url("sabores.jpg");
+      background-repeat: no-repeat;
+      background-size: 209.09% 914.29%;
+      background-color: #333;
+    }
+
+    .foto-roquefort {
+      background-position: 97.5% 45.39%;
+    }
+
+    .foto-caprese {
+      background-position: 48.33% 78.07%;
+    }
+
+    .foto-fugazzeta {
+      background-position: 2.5% 45.39%;
+    }
+
+    .foto-jamon-queso {
+      background-position: 2.5% 27.63%;
+    }
+
+    .foto-jamon-mozza-morron {
+      background-position: 2.5% 61.84%;
+    }
+
+    /* Foto nueva para Huevo */
+    .foto-huevo {
+      background-image: url("huevo.jpg");
+      background-size: cover;
+      background-position: center 27%;
+    }
+
+    /* Sin usar la foto de muzzarella y albahaca */
+    .foto-provoleta {
+      background-image: none;
+      background-color: #29251d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      color: #d8c59d;
+      font-size: 12px;
+    }
+
+    .congeladas {
+      padding: 35px 15px;
+      text-align: center;
+      background: #0d0d0d;
+    }
+
+    .precios-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .precio-card {
+      background: #1c1c1c;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: left;
+      border: 1px solid #f5b942;
+    }
+
+    .precio-card h3 {
+      color: #f5b942;
+      font-size: 16px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .precio-lista {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .precio-item {
+      background: #111;
+      border-radius: 8px;
+      padding: 10px 15px;
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .cantidad {
+      font-size: 12px;
+      color: #ccc;
+      display: block;
+    }
+
+    .valor {
+      font-size: 20px;
+      font-weight: bold;
+      color: #f5b942;
+    }
+
+    .precio-mayorista {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #bbb;
+      text-align: center;
+    }
+
+    .precio-mayorista span {
+      color: #f5b942;
+      font-weight: bold;
+    }
+
+    .beneficios {
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
+      padding: 25px 15px;
+      background: #000;
+      text-align: center;
+      flex-wrap: wrap;
+    }
+
+    .beneficio {
+      flex: 1;
+      min-width: 110px;
+      max-width: 200px;
+      font-size: 12px;
+      color: #ccc;
+    }
+
+    .beneficio span {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px 90px;
+      background: linear-gradient(180deg, #241a0e, #080808);
+    }
+
+    footer h3 {
+      color: #f5b942;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      background: #25d366;
+      color: #000;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 27px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 380px) {
+      header {
+        justify-content: center;
+      }
+
+      .grid {
+        gap: 8px;
+      }
+
+      .card p {
+        font-size: 11px;
+      }
+
+      .foto-provoleta {
+        font-size: 10px;
+        padding: 4px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn-pedido {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">🐴 GAUCHO</div>
+
+    <nav aria-label="Menú principal">
+      <a href="#sabores">Sabores</a>
+      <a href="#congeladas">Congeladas</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Llevamos la clásica<br>TORTILLA a otro nivel</h1>
+      <p>Sabores que enamoran</p>
+
+      <a
+        href="https://wa.me/5491157979932?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20tortillas"
+        class="btn-pedido"
+        target="_blank"
+        rel="noopener noreferrer">
+        Hacer pedido
+      </a>
+    </section>
+
+    <section class="sabores" id="sabores">
+      <h2>Nuestros Sabores</h2>
+      <p>Tortillas variadas, algo argentino</p>
+
+      <div class="grid">
+        <div class="card">
+          <div
+            class="foto-sabor foto-roquefort"
+            role="img"
+            aria-label="Tortilla con roquefort">
+          </div>
+          <p>Roquefort</p>
+        </div>
+
+        <div class="card">
+          <div class="foto-sabor foto-provoleta">
+            Foto próximamente
+          </div>
+          <p>Provoleta</p>
+        </div>
+
+        <div class="card">
+          <div
+            class="foto-sabor foto-caprese"
+            role="img"
+            aria-label="Tortilla caprese">
+          </div>
+          <p>Caprese</p>
+        </div>
+
+        <div class="card">
+          <div
+            class="foto-sabor foto-fugazzeta"
+            role="img"
+            aria-label="Tortilla de fugazzeta">
+          </div>
+          <p>Fugazzeta</p>
+        </div>
+
+        <div class="card">
+          <div
+            class="foto-sabor foto-jamon-queso"
+            role="img"
+            aria-label="Tortilla de jamón y queso">
+          </div>
+          <p>Jamón y queso</p>
+        </div>
+
+        <div class="card">
+          <div
+            class="foto-sabor foto-jamon-mozza-morron"
+            role="img"
+            aria-label="Tortilla con jamón y morrón">
+          </div>
+          <p>Jamón, mozza y morrón</p>
+        </div>
+
+        <div class="card">
+          <div
+            class="foto-sabor foto-huevo"
+            role="img"
+            aria-label="Tortilla rellena con huevo">
+          </div>
+          <p>Huevo</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="congeladas" id="congeladas">
+      <h2>Tortillas Congeladas</h2>
+      <p>¡Listas para cuando quieras! 🍕❄️</p>
+
+      <div class="precios-container">
+        <div class="precio-card">
+          <h3>Tortilla Simple</h3>
+
+          <div class="precio-lista">
+            <div class="precio-item">
+              <span class="cantidad">1 unidad</span>
+              <span class="valor">$3.000</span>
+            </div>
+
+            <div class="precio-item">
+              <span class="cantidad">2 unidades</span>
+              <span class="valor">$5.000</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="precio-card">
+          <h3>Tortilla Rellena</h3>
+
+          <div class="precio-lista">
+            <div class="precio-item">
+              <span class="cantidad">1 unidad</span>
+              <span class="valor">$5.000</span>
+            </div>
+
+            <div class="precio-item">
+              <span class="cantidad">2 unidades</span>
+              <span class="valor">$9.000</span>
+            </div>
+          </div>
+
+          <p class="precio-mayorista">
+            Desde 10 unidades: cada una a <span>$3.500</span>
+          </p>
+        </div>
+      </div>
+
+      <a
+        href="https://wa.me/5491157979932?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20tortillas%20congeladas"
+        class="btn-pedido"
+        target="_blank"
+        rel="noopener noreferrer">
+        Pedir congeladas
+      </a>
+    </section>
+
+    <section class="beneficios" aria-label="Nuestros beneficios">
+      <div class="beneficio">
+        <span aria-hidden="true">🚚</span>
+        Envío gratis en la ciudad
+      </div>
+
+      <div class="beneficio">
+        <span aria-hidden="true">🌿</span>
+        Ingredientes seleccionados
+      </div>
+
+      <div class="beneficio">
+        <span aria-hidden="true">💳</span>
+        Pago con tarjeta/efectivo
+      </div>
+
+      <div class="beneficio">
+        <span aria-hidden="true">👨‍🍳</span>
+        Todo hecho a pedido
+      </div>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <h3>Las Tortillas del Gaucho</h3>
+    <p>Consultas y pedidos por WhatsApp</p>
+
+    <a
+      href="https://wa.me/5491157979932"
+      class="btn-pedido"
+      target="_blank"
+      rel="noopener noreferrer">
+      Contactanos
+    </a>
+  </footer>
+
+  <a
+    href="https://wa.me/5491157979932"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactar por WhatsApp">
+    💬
+  </a>
+
+</body>
+  </html>
 
